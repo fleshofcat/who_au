@@ -2,9 +2,12 @@ project(app LANGUAGES CXX)
 
 add_library(${PROJECT_NAME} "rename.cpp" "rename.h")
 
-target_include_directories(${PROJECT_NAME} PUBLIC ../lib/curlpp/include)
+target_include_directories(${PROJECT_NAME} PUBLIC lib/curlpp/include) #TODO mabe made private
 
+add_subdirectory(lib/curlpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE curlpp)
+
+
 
 #target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
