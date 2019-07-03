@@ -1,11 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 
-#include <../app/rename.h>
+//#include <../app/rename.h>
 
 int main(int argc, char *argv[])
 {
-    std::cout << testString();
+//    std::cout << testString();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 

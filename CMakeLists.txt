@@ -18,4 +18,4 @@ project(who_au LANGUAGES CXX)
 #target_include_directories(${PROJECT_NAME} PRIVATE "lib/curlpp/include")
 
 add_subdirectory(app)
-add_subdirectory(gui)
+#add_subdirectory(gui)
