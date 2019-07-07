@@ -3,17 +3,16 @@ project(app LANGUAGES CXX)
 #SET(PLATFORM_SPECIFIC_LIBS "-lpthread")
 
 #add_library(${PROJECT_NAME} "testFaceApi.cpp" "testFaceApi.h")
-add_library(${PROJECT_NAME} "toFaceApi.cpp" "toFaceApi.h")
+add_library(${PROJECT_NAME} "CloudApi.cpp" "CloudApi.h")
 
-target_include_directories(${PROJECT_NAME} PUBLIC lib/curlpp/include) #TODO mabe made private
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/lib/curlpp/include) #TODO mabe made private
 
-add_subdirectory(lib/curlpp)
-target_link_libraries(${PROJECT_NAME} PRIVATE curlpp)
+target_link_libraries(${PROJECT_NAME} PUBLIC curlpp)
 add_dependencies(${PROJECT_NAME} curlpp)
 
-add_executable(api_test "api_test.h" "api_test.cpp")
-target_link_libraries(api_test ${PROJECT_NAME})
-add_dependencies(api_test ${PROJECT_NAME})
+#add_executable(api_test "api_test.h" "api_test.cpp")
+#target_link_libraries(api_test ${PROJECT_NAME})
+#add_dependencies(api_test ${PROJECT_NAME})
 
 
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")

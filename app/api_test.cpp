@@ -27,11 +27,11 @@ std::string createNewUser_hard()
     request.setOpt(new curlpp::options::PostFields(body));
     request.setOpt(new curlpp::options::PostFieldSize(int(body.length())));
 
-//    std::ostringstream response;
+    std::ostringstream response;
 //    request.setOpt(new curlpp::options::WriteStream(&response));
 
     request.perform();
-
+//response.fail();
 //    return response.str();
     return "";
 }
