@@ -7,16 +7,16 @@
 
 using namespace std;
 
-TEST_CASE("Detect Face by image path", "[CloudApi]")
+TEST_CASE("Attempt to create exists user again", "[CloudApi]")
 {
-    std::string response = CloudApi::detectImage_hard("../../who_au/tests/res/people.jpg");
+    std::string response = CloudApi::createDemoAccount(
+                "myakotakota@mail.ru",
+                "password");
 
     nlohmann::json response_json = nlohmann::json::parse(response);
-    auto q = response_json["status_code"];
 
-//    std::cout << response << std::endl;
-
-    REQUIRE(response_json["status_code"] == 200);
+    REQUIRE(response_json["error"]["email"][0]
+            == "user with given email already exists");
 }
 
 
@@ -35,12 +35,9 @@ TEST_CASE("Detect face by bin image", "[CloudApi]")
     file.read(binImage.data(), size);
     file.close();
 
-    string response = CloudApi::detectImage_ByImage(binImage);
+    string response = CloudApi::detectImage(binImage);
 
     nlohmann::json response_json = nlohmann::json::parse(response);
-    auto q = response_json["status_code"];
-
-//    std::cout << response << std::endl;
 
     REQUIRE(response_json["status_code"] == 200);
 }

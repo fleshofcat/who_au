@@ -18,16 +18,14 @@ public:
     static std::string getTestString();
 
     static std::string
-    createUser(std::string email, std::string pass);
+    createDemoAccount(std::string email, std::string pass);
+
 
     static std::string
-    loginUser(std::string email, std::string pass);
+    login(std::string email, std::string pass);
 
     static std::string
-    detectImage_hard(std::string imagePath);
-
-    static std::string
-    detectImage_ByImage(std::vector<char> imageBin); // Jpeg
+    detectImage(std::vector<char> imageBin); // Jpeg
 };
 
 
