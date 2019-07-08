@@ -21,8 +21,9 @@ add_subdirectory(lib/Catch2)
 add_subdirectory(lib/curlpp)
 add_subdirectory(lib/json)
 
+add_subdirectory(cloud_api)
 add_subdirectory(app)
-add_subdirectory(tests)
 #add_subdirectory(gui)
+add_subdirectory(tests)
 
 

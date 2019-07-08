@@ -1,29 +1,48 @@
 #include <catch.hpp>
 #include <nlohmann/json.hpp>
-//#include <json/json.h>
 #include <CloudApi.h>
+#include <fstream>
+#include <iostream>
+#include <ios>
 
+using namespace std;
 
-TEST_CASE("Face detection test", "[CloudApi]")
+TEST_CASE("Detect Face by image path", "[CloudApi]")
 {
-    std::string response = CloudApi::detectImage_hard();
-
+    std::string response = CloudApi::detectImage_hard("../../who_au/tests/res/people.jpg");
 
     nlohmann::json response_json = nlohmann::json::parse(response);
     auto q = response_json["status_code"];
 
+//    std::cout << response << std::endl;
 
     REQUIRE(response_json["status_code"] == 200);
+}
 
 
+TEST_CASE("Detect face by bin image", "[CloudApi]")
+{
+    vector<char> binImage;
 
+    ifstream file("../../who_au/tests/res/face.jpg");
 
+    file.seekg (0, file.end);
+    auto size = file.tellg();
+    file.seekg (0, file.beg);
 
-//    Json::Value response_json(response);
-//    Json::Reader reader;
-//    reader.parse(response, response_json);
-//    std::cout << response_json["status_code"].asString() << std::endl;
-//    REQUIRE(response_json["status_code"].asString() == "200");
+    binImage.resize((unsigned long)(size));
+
+    file.read(binImage.data(), size);
+    file.close();
+
+    string response = CloudApi::detectImage_ByImage(binImage);
+
+    nlohmann::json response_json = nlohmann::json::parse(response);
+    auto q = response_json["status_code"];
+
+//    std::cout << response << std::endl;
+
+    REQUIRE(response_json["status_code"] == 200);
 }
 
 
