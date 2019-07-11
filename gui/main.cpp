@@ -1,15 +1,19 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QQuickStyle>
 
-//#include <../app/rename.h>
+#include "presenter.h"
 
 int main(int argc, char *argv[])
 {
-//    std::cout << testString();
-
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
+
+    QQuickStyle::setStyle("Material");
+
+    qmlRegisterType<Presenter>
+            ("who_au.presenter", 1, 0, "Presenter");
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));

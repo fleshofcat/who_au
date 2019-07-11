@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>auth_view.qml</file>
+        <file>main_view.qml</file>
     </qresource>
 </RCC>

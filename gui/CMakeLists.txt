@@ -8,13 +8,15 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Core Quick REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
-add_executable(${PROJECT_NAME} "main.cpp" "qml.qrc")
+add_executable(${PROJECT_NAME} "main.cpp" "presenter.cpp" "presenter.h" "qml.qrc")
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Core Qt5::Quick app)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json) # TODO
 
-#target_include_directories(${PROJECT_NAME} PRIVATE "../app/")
+target_link_libraries(${PROJECT_NAME} PRIVATE app)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/app)
 

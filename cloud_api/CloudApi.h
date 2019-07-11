@@ -13,11 +13,6 @@
 
 #include <curl/curl.h>
 
-//#include <curlpp/cURLpp.hpp>
-//#include <curlpp/Easy.hpp>
-//#include <curlpp/Options.hpp>
-//#include <curlpp/Exception.hpp>
-
 using namespace std;
 
 class CloudApi
