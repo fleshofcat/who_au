@@ -4,15 +4,12 @@ import QtQuick.Controls.Material 2.0
 import who_au.presenter 1.0
 
 ApplicationWindow {
-    id: rootWindow
-    visible: true
+    id: root
+    visible: false
     Material.theme: Material.Dark
     Material.accent: Material.Blue
 
     title: qsTr("Main Window")
-
-    height: 200
-    width: 400
 
     Loader {
         id: loader
@@ -22,10 +19,19 @@ ApplicationWindow {
     Presenter {
         id: presenter
 
-        onShowAuth: loader.setSource("auth_view.qml", { "presenter": presenter })
-        onShowApp: loader.source = "main_view.qml"
+        onShowAuthView: {
+            root.height = 200; root.width = 400
+            loader.setSource("auth_view.qml", { "presenter": presenter })
+        }
+
+        onShowAppView: {
+            root.height = 550; root.width = 800
+            loader.setSource("app_view.qml",  { "presenter": presenter })
+        }
     }
 
-
-    onVisibleChanged: presenter.uiIsReady()
+    Component.onCompleted: {
+        presenter.uiIsReady()
+        root.visible = true
+    }
 }

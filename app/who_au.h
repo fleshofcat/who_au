@@ -2,6 +2,9 @@
 
 #include "i_user_interface.h"
 
+#include <list>
+#include <fstream>
+
 #include <CloudApi.h>
 #include <nlohmann/json.hpp>
 
@@ -10,8 +13,17 @@
 
 class WhoAU
 {
-    IUserInterface *_ui;
+    IUserInterface *ui;
     CloudApi cloud;
+
+    class MapWithContains : public std::map<string, string>
+    {
+    public:
+        bool contains(string key)
+        {
+            return find(key) != end() ? true : false;
+        }
+    } loadedFiles;
 
 public:
     WhoAU() {}
@@ -19,11 +31,12 @@ public:
     void setUi(IUserInterface * ui); // do the same
 
     void start();
-
     void authentication(
             std::string email, std::string pass);
 
-//    std::string
-//    detectFace(std::string imagePath);
+    void detectFace(std::list<std::string> imagePaths);
+
+private:
+    std::string sendFile(string imagePath); // TODO add extensions converting
 };
 

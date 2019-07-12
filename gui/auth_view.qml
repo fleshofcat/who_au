@@ -5,6 +5,10 @@ import QtQuick.Layouts 1.3
 Page {
     id: authView
 
+    Connections{
+        target: presenter
+        onShowAuthErr: errLabel.text = authErrMsg
+    }
 
     GridLayout {
         columns: 2
@@ -15,7 +19,6 @@ Page {
             id: errLabel
             color: "white"
 
-            Layout.row: 0
             Layout.columnSpan: 2
             Layout.leftMargin: 10
         }
@@ -27,6 +30,7 @@ Page {
 
         TextField {
             id: emailField
+            Layout.fillHeight: true
 //            onAccepted: passwordField.focus = true
         }
 
@@ -57,12 +61,6 @@ Page {
                 }
             }
 
-            Connections{
-                target: presenter
-                onShowAuthErr: errLabel.text = authErrMsg
-            }
         }
     }
-
-
 }
