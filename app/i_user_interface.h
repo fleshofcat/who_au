@@ -16,7 +16,7 @@ public:
             std::string>            // json report. Empty when
             loadedFilesInfo) = 0;   // file is unhandled
 
-    virtual void showDetectionError(std::string msg) = 0;
+//    virtual void showDetectionError(std::string msg) = 0;
 };
 
 //IUserInterface::~IUserInterface(){}

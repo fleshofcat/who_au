@@ -29,20 +29,34 @@ void Presenter::showUserWorkspace()
 void Presenter::showCurrentResult(
         std::map<string, string> loadedFilesInfo)
 {
+    QCoreApplication::processEvents();
     QVariantMap model;
+
+    int filesToHandleCount = 0;
 
     for (auto pair : loadedFilesInfo)
     {
-        model.insert(QString::fromStdString(pair.first),
+        model.insert(QString::fromStdString("file://" + pair.first),
                      QString::fromStdString(pair.second));
+
+        if (pair.second == "")
+            filesToHandleCount++;
     }
 
-    emit showImagesInfo(model);
-}
+    if (choosenFilesCount == 0)
+        choosenFilesCount = filesToHandleCount;
 
-void Presenter::showDetectionError(string msg)
-{
-    // TODO
+
+    QCoreApplication::processEvents();
+    emit showImagesInfo(model);
+    auto leftToWork = double(filesToHandleCount) / double(choosenFilesCount);
+    emit showStatus(1.0 - leftToWork);
+    QCoreApplication::processEvents();
+
+    if (filesToHandleCount == 0)
+    {
+        choosenFilesCount = 0;
+    }
 }
 
 void Presenter::userNeedAuth(QString email, QString pass)
@@ -52,6 +66,8 @@ void Presenter::userNeedAuth(QString email, QString pass)
 
 void Presenter::userPickedFiles(QList<QUrl> pickedFiles)
 {
+//    choosenFilesCount = pickedFiles.count();
+
     std::list<std::string> selectedFiles;
 
     for (auto url : pickedFiles)

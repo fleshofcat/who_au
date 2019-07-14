@@ -1,27 +1,31 @@
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4
 import QtQuick.Controls 2.5
-import QtQuick 2.3
+import QtQuick 2.5
 import QtQuick.Dialogs 1.2
 
-Page {
+Item {
     id: appView
 
     Connections{
         target: presenter
-        onShowImagesInfo: { // imagesInfo
-            // TODO to load images from input with additional info
+        onShowImagesInfo: {
 
             photoMenuModel.clear()
 
             for (var imageData in imagesInfo)
             {
-//                console.log("Object item:", imageData,
-//                            "=", imagesInfo[imageData])
-
-
+                var imageIsDone = imagesInfo[imageData] === "" ? false : true
+                photoMenuModel.append(
+                            {"photoName": imageData.replace(/^.*(\\|\/|\:)/, ''),
+                                "imagePath": imageData,
+                                "reportText": imagesInfo[imageData],
+                                "isPhotoHandled": imageIsDone})
             }
+        }
 
+        onShowStatus: {
+             progressBar.value = percentage
         }
     }
 
@@ -35,98 +39,92 @@ Page {
             width: 150
             Layout.minimumWidth: 7
 
-            ProgressBar {
-                id: progressBar
-
-                width: 10
-
-                anchors {
-                    top: parent.top
-                    right: parent.right
-                    bottom: parent.bottom
-                }
-            }
-
-
             ListView {
                 id: listView
 
-//                anchors.fill: parent
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: progressBar.left
-                }
-
+                anchors.fill: parent
 
                 spacing: 30
                 header: Item { height: 65 }
 
+                highlightFollowsCurrentItem: false
+                highlightMoveDuration: 100
+
                 delegate: Button {
                     id: photoButton
 
-                    height: width * 0.6
+                    height: imageItem.height + 40
 
                     anchors.right: parent.right
                     anchors.left: parent.left
-
                     anchors.margins: 20
 
                     Image {
                         id: imageItem
-                        anchors.fill: parent
                         source: imagePath
+                        fillMode: Image.PreserveAspectFit
+                        anchors.top: parent.top
+                        anchors.right: parent.right
+                        anchors.left: parent.left
+
+                        anchors.topMargin: 7
+                        anchors.margins: 1
                     }
 
                     Text {
+                        id: photoNameLabel
                         text: photoName
 
                         color: "#ddd"
                         font.bold: true
 
-                        anchors.top: imageItem.bottom
-                        anchors.horizontalCenter: imageItem.horizontalCenter
-                        anchors.topMargin: 7
+                        anchors {
+                            top: imageItem.bottom
+                            bottom: parent.bottom
+                            left: parent.left
+                            right: parent.right
+                        }
 
+                        anchors.topMargin: -10
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+
+                    }
+
+                    Text {
+                        id: reportLabel
+                        text: reportText
+                        visible: false
+                    }
+
+                    BusyIndicator {
+                        id: busyIndicatro
+
+                        anchors.fill: parent
+
+                        running: !isPhotoHandled
+                    }
+
+                    onClicked: {
+                        listView.highlightFollowsCurrentItem = true
+                        listView.currentIndex = index
+
+                        faceDetector.faceReport = reportLabel.text
+                        faceDetector.source = imageItem.source
                     }
                 }
+
                 model: ListModel {
                     id: photoMenuModel
+                }
 
-                    ListElement {
-                        photoName: "the face on top"
-                        imagePath: "res/face.jpg"
-                    }
-                    ListElement {
-                        photoName: "the people"
-                        imagePath: "res/people.jpg"
-                    }
-                    ListElement {
-                        photoName: "the face"
-                        imagePath: "res/face.jpg"
-                    }
-                    ListElement {
-                        photoName: "the people"
-                        imagePath: "res/people.jpg"
-                    }
-                    ListElement {
-                        photoName: "the face"
-                        imagePath: "res/face.jpg"
-                    }
-                    ListElement {
-                        photoName: "the people"
-                        imagePath: "res/people.jpg"
-                    }
-                    ListElement {
-                        photoName: "the face"
-                        imagePath: "res/face.jpg"
-                    }
-                    ListElement {
-                        photoName: "the people"
-                        imagePath: "res/people.jpg"
-                    }
-                }}
+
+                highlight: Rectangle {
+                    anchors.right: parent.right
+                    anchors.left: parent.left
+                    color: "#809170ff"
+                }
+            }
 
             Rectangle {
                 id: sideBarHeader
@@ -165,9 +163,10 @@ Page {
                         height: 35
                         width: 30
 
-                        background: Rectangle {
+                        Rectangle {
                             color: "#555"
                             opacity: 0.5
+                            anchors.fill: parent
                         }
 
                         Image {
@@ -188,14 +187,27 @@ Page {
                 }
             }
         }
+
         Item {
             id: centerItem
             Layout.minimumWidth: 50
-            Layout.fillWidth: true
 
-            Text {
-                text: "View 2"
-                anchors.centerIn: parent
+            DetectedFaceViewer {
+                id: faceDetector
+            }
+
+            ProgressBar {
+                id: progressBar
+
+                from: 0.1
+                to: 1.0
+
+                width: 10
+                anchors {
+                    top: parent.top
+                    right: parent.right
+                    left: parent.left
+                }
             }
         }
     }
@@ -209,10 +221,21 @@ Page {
         nameFilters: [ "Image files (*.jpg)" ]
 
         onAccepted: {
+            fileDialog.setVisible(false)
+//            progressBar.value = 0.1
             presenter.userPickedFiles(fileDialog.fileUrls)
-            console.log(fileDialog.fileUrls)
         }
         onRejected: { }
+    }
+
+    Component.onCompleted: {
+//        fileDialog.open()
+
+        presenter.userPickedFiles(["file:///home/kat/Test Images Folder/face.jpg",
+                                  "file:///home/kat/Test Images Folder/smiling_woman.jpg",
+                                  "file:///home/kat/Test Images Folder/father daughter.jpg",
+                                  "file:///home/kat/Test Images Folder/mister-n.jpg",
+                                  "file:///home/kat/Test Images Folder/people.jpg"])
     }
 }
 
