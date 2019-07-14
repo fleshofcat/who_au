@@ -36,6 +36,8 @@ Item {
         Item {
             id: sideBarRect
 
+            z: 1
+
             width: 150
             Layout.minimumWidth: 7
 
