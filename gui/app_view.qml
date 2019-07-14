@@ -224,20 +224,9 @@ Item {
 
         onAccepted: {
             fileDialog.setVisible(false)
-//            progressBar.value = 0.1
             presenter.userPickedFiles(fileDialog.fileUrls)
         }
         onRejected: { }
-    }
-
-    Component.onCompleted: {
-//        fileDialog.open()
-
-        presenter.userPickedFiles(["file:///home/kat/Test Images Folder/face.jpg",
-                                  "file:///home/kat/Test Images Folder/smiling_woman.jpg",
-                                  "file:///home/kat/Test Images Folder/father daughter.jpg",
-                                  "file:///home/kat/Test Images Folder/mister-n.jpg",
-                                  "file:///home/kat/Test Images Folder/people.jpg"])
     }
 }
 

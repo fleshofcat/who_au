@@ -6,7 +6,6 @@
         <file>res/face.jpg</file>
         <file>res/people.jpg</file>
         <file>res/upload_icon.png</file>
-        <file>worker_script.js</file>
         <file>DetectedFaceViewer.qml</file>
     </qresource>
 </RCC>

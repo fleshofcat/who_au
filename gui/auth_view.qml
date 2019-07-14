@@ -31,7 +31,7 @@ Page {
         TextField {
             id: emailField
             Layout.fillHeight: true
-//            onAccepted: passwordField.focus = true
+            Layout.preferredWidth: 200
         }
 
         Text {
@@ -40,8 +40,8 @@ Page {
         }
 
         TextField {
-            id: passwordField
-//            onAccepted:
+            id: passwordField            
+            Layout.preferredWidth: 200
         }
 
         Button {

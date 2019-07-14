@@ -13,15 +13,8 @@ Flickable {
     property alias faceReport: faceReport.text
 
     onWidthChanged: canvas.requestPaint()
-
     onHeightChanged: canvas.requestPaint()
-    onSourceChanged: {
-
-//        root.contentHeight = image.sourceSize.height
-//        root.contentWidth = image.sourceSize.width
-
-        canvas.requestPaint()
-    }
+    onSourceChanged: canvas.requestPaint()
 
     Image {
         id: image
@@ -31,6 +24,10 @@ Flickable {
         fillMode: Image.PreserveAspectFit
         antialiasing: true
 
+        onSourceChanged: {
+            root.contentHeight = height
+            root.contentWidth = width
+        }
         onHeightChanged: root.contentHeight = height
         onWidthChanged: root.contentWidth = width
     }

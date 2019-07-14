@@ -12,9 +12,7 @@ void WhoAU::setUi(IUserInterface *ui)
 
 void WhoAU::start()
 {
-//    ui->showAuth();
-    authentication("who_au@mail.com", "pass");
-    ui->showUserWorkspace();
+    ui->showAuth();
 }
 
 void WhoAU::authentication(
