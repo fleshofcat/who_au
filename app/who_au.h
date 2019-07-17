@@ -8,9 +8,6 @@
 #include <CloudApi.h>
 #include <nlohmann/json.hpp>
 
-//using namespace std;
-//using namespace nlohmann;
-
 class WhoAU
 {
     IUserInterface *ui;
@@ -37,6 +34,6 @@ public:
     void detectFace(std::list<std::string> imagePaths);
 
 private:
-    std::string sendFile(string imagePath); // TODO add extensions converting
+    std::string sendFile(string imagePath);
 };
 

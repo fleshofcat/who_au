@@ -59,8 +59,6 @@ void WhoAU::detectFace(std::list<string> imagePaths)
 
 std::string WhoAU::sendFile(string imagePath)
 {
-    // TODO conversation
-
     vector<char> jpegBin;
 
     ifstream file(imagePath);

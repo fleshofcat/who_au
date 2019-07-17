@@ -5,8 +5,6 @@ import QtQuick.Layouts 1.3
 Flickable {
     id: root
 
-    clip: true // mayby to rm
-
     anchors.fill: parent
 
     property alias source: image.source
@@ -34,7 +32,6 @@ Flickable {
 
     PinchArea {
         anchors.fill: parent
-//        pinch.target: image
 
         pinch.minimumScale: 0.1
         pinch.maximumScale: 10
@@ -42,7 +39,6 @@ Flickable {
 
         MouseArea {
             anchors.fill: parent
-//            drag.target: image
             onWheel: {
                 image.anchors.fill = undefined
 
@@ -57,17 +53,11 @@ Flickable {
                     image.width /= 1.2
                 }
             }
-
-            onPressAndHold: {
-
-            }
         }
-
     }
 
     Canvas {
         id: canvas
-        //        anchors.fill: image
         anchors.centerIn: image
         width: image.paintedWidth
         height: image.paintedHeight
@@ -94,11 +84,7 @@ Flickable {
         var ctx = canvas.getContext("2d");
 
         ctx.lineWidth = 3
-        //        ctx.lineWidth = 3 / canvas.scale
-        //        console.log(ctx.lineWidth)
-        //        console.log(canvas.scale)
-
-        ctx.strokeStyle = "black" //"#00264d"
+        ctx.strokeStyle = "black"
 
         ctx.beginPath();
         ctx.moveTo(getRelX(signData.bbox.x), getRelY(signData.bbox.y))

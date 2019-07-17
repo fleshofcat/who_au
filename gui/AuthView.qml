@@ -40,8 +40,9 @@ Page {
         }
 
         TextField {
-            id: passwordField            
+            id: passwordField
             Layout.preferredWidth: 200
+            onAccepted: sendAuthData()
         }
 
         Button {
@@ -53,14 +54,16 @@ Page {
             Layout.row: 3
             Layout.alignment: Qt.AlignRight
 
-            onPressed: {
-                if (emailField.text !== "" && passwordField.text !== ""){
-                    presenter.userNeedAuth(emailField.text, passwordField.text)
-                } else {
-                    errLabel.text = "please enter both fields"
-                }
-            }
+            onPressed: sendAuthData()
 
+        }
+    }
+
+    function sendAuthData() {
+        if (emailField.text !== "" && passwordField.text !== ""){
+            presenter.userNeedAuth(emailField.text, passwordField.text)
+        } else {
+            errLabel.text = "please enter both fields"
         }
     }
 }

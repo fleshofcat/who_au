@@ -1,11 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>auth_view.qml</file>
-        <file>app_view.qml</file>
-        <file>res/face.jpg</file>
-        <file>res/people.jpg</file>
-        <file>res/upload_icon.png</file>
+        <file>AuthView.qml</file>
+        <file>AppView.qml</file>
         <file>DetectedFaceViewer.qml</file>
+        <file>res/upload_icon.png</file>
     </qresource>
 </RCC>

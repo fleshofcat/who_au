@@ -21,12 +21,12 @@ ApplicationWindow {
 
         onShowAuthView: {
             root.height = 200; root.width = 400
-            loader.setSource("auth_view.qml", { "presenter": presenter })
+            loader.setSource("AuthView.qml", { "presenter": presenter })
         }
 
         onShowAppView: {
             root.height = 550; root.width = 800
-            loader.setSource("app_view.qml",  { "presenter": presenter })
+            loader.setSource("AppView.qml",  { "presenter": presenter })
         }
     }
 

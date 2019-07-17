@@ -228,6 +228,13 @@ Item {
         }
         onRejected: { }
     }
+
+    Shortcut {
+        sequence: "Ctrl+O"
+        onActivated: {
+            fileDialog.open()
+        }
+    }
 }
 
 

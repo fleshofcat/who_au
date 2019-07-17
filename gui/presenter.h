@@ -46,7 +46,6 @@ public slots:
     Q_INVOKABLE void uiIsReady();
     Q_INVOKABLE void userNeedAuth(QString email, QString pass);
     Q_INVOKABLE void userPickedFiles(QList<QUrl> pickedFiles);
-
 };
 
 

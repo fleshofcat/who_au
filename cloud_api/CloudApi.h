@@ -1,16 +1,6 @@
 #pragma once
 
-// TODO remove useless includes
-#include <iostream>
-#include <cstdlib>
-#include <sstream>
-#include <future>
-#include <pthread.h>
-#include <vector>
-#include <malloc.h>
-#include <memory.h>
 #include <nlohmann/json.hpp>
-
 #include <curl/curl.h>
 
 using namespace std;
