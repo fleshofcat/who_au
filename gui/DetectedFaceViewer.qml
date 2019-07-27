@@ -91,15 +91,6 @@ Item {
         id: faceReport
         visible: false
     }
-
-//    Component.onCompleted: {
-//        presenter.userPickedFiles(["file:///home/kat/Test Images Folder/face.jpg",
-//                                   "file:///home/kat/Test Images Folder/smiling_woman.jpg",
-//                                   "file:///home/kat/Test Images Folder/father daughter.jpg",
-//                                   "file:///home/kat/Test Images Folder/mister-n.jpg",
-//                                   "file:///home/kat/Test Images Folder/people.jpg"])
-
-//    }
 }
 
 
